@@ -1,4 +1,4 @@
-package org.conghung.datastructuresandalgorithms;
+package org.conghung.datastructuresandalgorithms.DSA;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,15 +11,23 @@ import java.util.Arrays;
  * - Các phần tử được lưu trữ LIÊN TIẾP nhau trong bộ nhớ
  * - Mỗi phần tử được truy cập thông qua INDEX (chỉ số)
  * - Index luôn bắt đầu từ 0 (zero-based indexing)
+ * - An array stores a collection of elements of the same type
+ * - Elements are stored CONTIGUOUSLY in memory
+ * - Each element is accessed via an INDEX (zero-based)
  * 
- * Đặc điểm quan trọng:
+ * Đặc điểm quan trọng: - Characteristics:
  * - Array lưu địa chỉ bắt đầu của vùng nhớ
  * - Khi truy cập arr[i], máy tính tính: địa chỉ_bắt_đầu + (i × kích_thước_phần_tử)
  * - Đây là lý do tại sao truy cập array rất nhanh: O(1)
+ * - The array stores the starting address of its memory block
+ * - Accessing arr[i] = base_address + (i × element_size)
+ * - Direct address calculation → O(1) access
  * 
  * Trong Java có 2 loại Array:
  * 1. Static Array (Array tĩnh): Kích thước cố định, không thể thay đổi
  * 2. Dynamic Array (ArrayList): Kích thước có thể thay đổi
+ * 1. Static Array: fixed size, cannot change after creation
+ * 2. Dynamic Array (ArrayList): resizable
  */
 public class Lesson2Array {
     
@@ -47,6 +55,12 @@ public class Lesson2Array {
      * - Java cấp phát một vùng nhớ LIÊN TIẾP có kích thước cố định
      * - Phần tử đầu tiên (index 0) là địa chỉ bắt đầu của array
      * - Nếu truy cập index ngoài phạm vi → ArrayIndexOutOfBoundsException
+    * Characteristics:
+     * - FIXED size, cannot change after creation
+     * - Must provide length at creation time
+     * - Java allocates one CONTIGUOUS memory block
+     * - First element (index 0) is at the starting address
+     * - Accessing out-of-range index → ArrayIndexOutOfBoundsException
      * 
      * Cách hoạt động trong bộ nhớ:
      * - Khi khai báo: int[] arr = new int[5]
@@ -55,7 +69,12 @@ public class Lesson2Array {
      * - arr[0] = địa chỉ bắt đầu
      * - arr[1] = địa chỉ bắt đầu + 4 bytes
      * - arr[2] = địa chỉ bắt đầu + 8 bytes
-     * - ...
+    * Memory layout:
+     * - Example: int[] arr = new int[5]
+     * - Needs 5 × 4 bytes (int = 4 bytes) in one contiguous block
+     * - arr[0] = base address
+     * - arr[1] = base address + 4 bytes
+     * - arr[2] = base address + 8 bytes
      * 
      * Big O Complexity:
      * - Access (Truy cập): O(1) - Truy cập trực tiếp bằng index
@@ -63,21 +82,26 @@ public class Lesson2Array {
      * - Insert: N/A - Không thể thêm phần tử mới (kích thước cố định)
      * - Update: O(1) - Cập nhật phần tử tại index
      * - Delete: N/A - Không thể xóa phần tử (chỉ có thể set = null hoặc giá trị mặc định)
+    * Big O:
+     * - Access: O(1)
+     * - Search: O(n)
+     * - Insert: N/A (size is fixed)
+     * - Update: O(1)
+     * - Delete: N/A (can only overwrite with default/null)
+     * Ưu điểm - Pros:
+     * - Truy cập nhanh: O(1) - Fast access O(1)
+     * - Tiết kiệm bộ nhớ (không có overhead) - Low memory overhead
+     * - Đơn giản, dễ sử dụng - simple and easy to use
      * 
-     * Ưu điểm:
-     * - Truy cập nhanh: O(1)
-     * - Tiết kiệm bộ nhớ (không có overhead)
-     * - Đơn giản, dễ sử dụng
+     * Nhược điểm - Cons:
+     * - Kích thước cố định, không linh hoạt - Fixed size, not flexible
+     * - Không thể thêm/xóa phần tử - Cannot add/remove elements
+     * - Phải biết kích thước trước - Must know size before creation
      * 
-     * Nhược điểm:
-     * - Kích thước cố định, không linh hoạt
-     * - Không thể thêm/xóa phần tử
-     * - Phải biết kích thước trước
-     * 
-     * Khi nào dùng Static Array?
-     * - Khi biết chính xác số lượng phần tử
-     * - Khi cần hiệu suất cao (truy cập nhanh)
-     * - Làm buffer, lookup table, return type
+     * When to use Static Array?
+     * - Khi biết chính xác số lượng phần tử - When you know the exact number of elements
+     * - Khi cần hiệu suất cao (truy cập nhanh) - When you need high performance (fast access)
+     * - Làm buffer, lookup table, return type - For buffer, lookup table, return type
      */
     private static void demonstrateStaticArray() {
         System.out.println("--- PHẦN 1: STATIC ARRAY (ARRAY TĨNH) ---\n");
@@ -155,40 +179,40 @@ public class Lesson2Array {
      * PHẦN 2: DYNAMIC ARRAY (ARRAYLIST)
      * ============================================
      * 
-     * Đặc điểm:
-     * - Kích thước CÓ THỂ THAY ĐỔI sau khi khởi tạo
-     * - Tự động mở rộng khi thêm phần tử
-     * - Tự động thu nhỏ khi xóa phần tử (tùy implementation)
-     * - Trong Java: ArrayList là implementation của Dynamic Array
+     * Đặc điểm: - Characteristics:
+     * - Kích thước CÓ THỂ THAY ĐỔI sau khi khởi tạo - Resizable after creation
+     * - Tự động mở rộng khi thêm phần tử - Automatically grow when adding elements
+     * - Tự động thu nhỏ khi xóa phần tử (tùy implementation) - Automatically shrink when deleting elements (depends on implementation)
+     * - Trong Java: ArrayList là implementation của Dynamic Array - In Java: ArrayList is an implementation of Dynamic Array
      * 
-     * Cách hoạt động:
-     * - Ban đầu: ArrayList có capacity (dung lượng) mặc định (thường là 10)
-     * - Khi thêm phần tử:
-     *   + Nếu còn chỗ → thêm trực tiếp: O(1)
-     *   + Nếu hết chỗ → tạo array mới gấp đôi, copy toàn bộ → O(n)
-     * - Khi xóa phần tử: phải dịch chuyển các phần tử còn lại → O(n)
+     * Cách hoạt động: - How it works:
+     * - Ban đầu: ArrayList có capacity (dung lượng) mặc định (thường là 10) - Initially: ArrayList has a default capacity (usually 10)
+     * - Khi thêm phần tử: - When adding elements:
+     *   + Nếu còn chỗ → thêm trực tiếp: O(1) - If there is space: add directly: O(1)
+     *   + Nếu hết chỗ → tạo array mới gấp đôi, copy toàn bộ → O(n) - If full: create new array double size, copy all: O(n)
+     * - Khi xóa phần tử: phải dịch chuyển các phần tử còn lại → O(n) - When deleting elements: must shift remaining elements: O(n)
      * 
      * Big O Complexity:
-     * - Access (Truy cập): O(1) - Giống Static Array
-     * - Search (Tìm kiếm): O(n) - Phải duyệt qua tất cả phần tử
-     * - Insert (Chèn vào giữa): O(n) - Phải dịch chuyển các phần tử
-     * - Append (Thêm vào cuối): O(1) amortized - Thường O(1), đôi khi O(n) khi resize
-     * - Delete (Xóa): O(n) - Phải dịch chuyển các phần tử
+     * - Access (Truy cập): O(1) - Giống Static Array - Same as Static Array
+     * - Search (Tìm kiếm): O(n) - Phải duyệt qua tất cả phần tử - Must traverse all elements
+     * - Insert (Chèn vào giữa): O(n) - Phải dịch chuyển các phần tử - Must shift elements
+     * - Append (Thêm vào cuối): O(1) amortized - Thường O(1), đôi khi O(n) khi resize - Usually O(1), sometimes O(n) when resize
+     * - Delete (Xóa): O(n) - Phải dịch chuyển các phần tử - Must shift elements
      * 
-     * Ưu điểm:
-     * - Linh hoạt: có thể thêm/xóa phần tử
-     * - Không cần biết kích thước trước
-     * - Truy cập nhanh: O(1)
+     * Ưu điểm - Pros:
+     * - Linh hoạt: có thể thêm/xóa phần tử - Flexible: can add/remove elements
+     * - Không cần biết kích thước trước - No need to know size before creation
+     * - Truy cập nhanh: O(1) - Fast access: O(1)
      * 
-     * Nhược điểm:
-     * - Chèn/xóa chậm hơn: O(n)
-     * - Tốn bộ nhớ hơn (có overhead)
-     * - Khi resize có thể tốn thời gian
+     * Nhược điểm - Cons:
+     * - Chèn/xóa chậm hơn: O(n) - Slower insert/delete: O(n)
+     * - Tốn bộ nhớ hơn (có overhead) - More memory overhead (has overhead)
+     * - Khi resize có thể tốn thời gian - When resize can take time
      * 
-     * Khi nào dùng Dynamic Array?
-     * - Khi không biết trước số lượng phần tử
-     * - Khi cần thêm/xóa phần tử thường xuyên
-     * - Khi cần truy cập nhanh bằng index
+     * Khi nào dùng Dynamic Array? - When to use Dynamic Array?
+     * - Khi không biết trước số lượng phần tử - When you don't know the exact number of elements
+     * - Khi cần thêm/xóa phần tử thường xuyên - When you need to add/remove elements frequently
+     * - Khi cần truy cập nhanh bằng index - When you need fast access by index
      */
     private static void demonstrateDynamicArray() {
         System.out.println("--- PHẦN 2: DYNAMIC ARRAY (ARRAYLIST) ---\n");
