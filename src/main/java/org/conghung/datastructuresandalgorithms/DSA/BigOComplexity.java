@@ -1,4 +1,4 @@
-package org.conghung.datastructuresandalgorithms;
+package org.conghung.datastructuresandalgorithms.DSA;
 
 /**
  * Big O Complexity - Giải thích chi tiết về Big O Notation cho người mới học DSA
