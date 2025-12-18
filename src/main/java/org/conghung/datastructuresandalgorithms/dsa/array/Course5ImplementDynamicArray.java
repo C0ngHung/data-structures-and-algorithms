@@ -1,4 +1,4 @@
-package org.conghung.datastructuresandalgorithms.DSA;
+package org.conghung.datastructuresandalgorithms.dsa.array;
 
 import java.util.Iterator;
 
