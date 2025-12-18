@@ -1,4 +1,4 @@
-package org.conghung.datastructuresandalgorithms.DSA;
+package org.conghung.datastructuresandalgorithms.dsa.linkedlist;
 
 public class Course6LinkedList {
   // Định nghĩa - Definition:

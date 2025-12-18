@@ -1,4 +1,4 @@
-package org.conghung.datastructuresandalgorithms.DSA;
+package org.conghung.datastructuresandalgorithms.dsa.linkedlist;
 
 public class Course7LinkedListPart2 {
   // Lưu ý: Trong LinkedList chúng ta không có index mà chỉ có pointer (con trỏ)
