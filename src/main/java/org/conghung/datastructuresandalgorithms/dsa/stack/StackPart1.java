@@ -32,6 +32,10 @@ public class StackPart1 {
     // Các implementation phổ biến trong stack:
     // 1. Stack dựa trên mảng (Array-based Stack)
     // 2. Stack dựa trên liên kết (Linked List-based Stack)
+
+    // khi nào nên dùng stack:
+    // - Khi làm việc với hệ thống hoặc stack thêm bớt liên tcục thì sử dụng stack dựa trên linked list sẽ hiệu quả hơn
+    // - Khi biết trước kích thước tối đa của stack và cần truy cập nhanh thì sử dụng stack dựa trên mảng sẽ hiệu quả hơn
     public static void main(String[] args) {
         System.out.println("Stack - Nguyên tắc LIFO (Last In First Out)");
     }
