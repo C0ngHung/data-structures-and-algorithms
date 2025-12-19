@@ -91,6 +91,14 @@ public class Course5ImplementDynamicArray<T> implements Iterable<T> {
         capacity = --size;
     }
 
+    public T removeAtWithoutMoving(int removeIndex) {
+        if (removeIndex >= size || removeIndex < 0) throw new IndexOutOfBoundsException();
+        T item = array[removeIndex];
+        array[removeIndex] = null;
+        capacity = --size;
+        return item;
+    }
+
     public void remove(Object object) {
         int removeIndex = indexOf(object);
         removeAt(removeIndex);
