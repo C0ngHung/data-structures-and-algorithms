@@ -2,19 +2,30 @@ package org.conghung.datastructuresandalgorithms.dsa;
 
 /**
  * Big O Complexity - Giải thích chi tiết về Big O Notation cho người mới học DSA
+ * Big O Complexity - Detailed explanation of Big O Notation for DSA beginners
  * 
  * Big O Notation là gì?
+ * What is Big O Notation?
  * - Big O giúp chúng ta đánh giá hiệu suất (performance) của một thuật toán
+ * - Big O helps us evaluate the performance of an algorithm
  * - Mô tả cách thời gian chạy hoặc không gian bộ nhớ tăng lên khi input size tăng
+ * - Describes how runtime or memory space increases as input size grows
  * - Big O chỉ ra trường hợp tệ nhất (worst case) của thuật toán
+ * - Big O indicates the worst case scenario of an algorithm
  * - Bỏ qua các hằng số (constants) và các thành phần bậc thấp (lower order terms)
+ * - Ignores constants and lower order terms
  * 
  * Tại sao cần Big O?
+ * Why do we need Big O?
  * - So sánh hiệu suất giữa các thuật toán khác nhau
+ * - Compare performance between different algorithms
  * - Dự đoán hiệu suất khi input lớn
+ * - Predict performance with large inputs
  * - Chọn thuật toán phù hợp cho từng bài toán
+ * - Choose the appropriate algorithm for each problem
  * 
  * Các độ phức tạp phổ biến (từ nhanh đến chậm):
+ * Common complexities (from fastest to slowest):
  * O(1) < O(log n) < O(n) < O(n log n) < O(n^2) < O(2^n) < O(n!)
  */
 public class BigOComplexity {
@@ -45,18 +56,29 @@ public class BigOComplexity {
      * Ex1: O(1) - Constant Time Complexity
      * 
      * Giải thích:
+     * Explanation:
      * - Thời gian chạy KHÔNG phụ thuộc vào kích thước input
+     * - Runtime does NOT depend on input size
      * - Dù input có 10 phần tử hay 10 triệu phần tử, thời gian chạy vẫn như nhau
+     * - Whether input has 10 elements or 10 million, runtime remains the same
      * - Đây là độ phức tạp tốt nhất có thể
+     * - This is the best possible complexity
      * 
      * Ví dụ thực tế:
+     * Real-world examples:
      * - Truy cập phần tử trong array bằng index: arr[5]
+     * - Accessing array element by index: arr[5]
      * - Thêm/xóa phần tử ở cuối array (nếu biết vị trí)
+     * - Adding/removing element at end of array (if position is known)
      * - Thao tác với HashMap (trung bình)
+     * - Operations with HashMap (average case)
      * 
      * Tại sao vòng lặp while(i < 100) vẫn là O(1)?
+     * Why is while(i < 100) still O(1)?
      * - Vì số lần lặp là CỐ ĐỊNH (100 lần), không phụ thuộc vào input size
+     * - Because the number of iterations is FIXED (100 times), independent of input size
      * - Khi n tiến tới vô cùng, 100 vẫn là constant → O(1)
+     * - When n approaches infinity, 100 remains constant → O(1)
      */
     private static void demonstrateO1() {
         System.out.println("--- Ex1: O(1) - Constant Time ---");
@@ -87,21 +109,34 @@ public class BigOComplexity {
      * Ex2: O(n) - Linear Time Complexity
      * 
      * Giải thích:
+     * Explanation:
      * - Thời gian chạy TỶ LỆ THUẬN với kích thước input
+     * - Runtime is PROPORTIONAL to input size
      * - Input tăng 2 lần → thời gian chạy tăng 2 lần
+     * - Input doubles → runtime doubles
      * - Input tăng 10 lần → thời gian chạy tăng 10 lần
+     * - Input increases 10x → runtime increases 10x
      * 
      * Công thức: f(n) = n → O(f(n)) = O(n)
+     * Formula: f(n) = n → O(f(n)) = O(n)
      * 
      * Ví dụ thực tế:
+     * Real-world examples:
      * - Duyệt qua tất cả phần tử trong array/list
+     * - Iterating through all elements in array/list
      * - Tìm kiếm tuyến tính (linear search) trong array chưa sắp xếp
+     * - Linear search in unsorted array
      * - In tất cả phần tử trong collection
+     * - Printing all elements in collection
      * 
      * Ví dụ số liệu:
+     * Example data:
      * - n = 100 → cần 100 lần lặp
+     * - n = 100 → needs 100 iterations
      * - n = 1000 → cần 1000 lần lặp
+     * - n = 1000 → needs 1000 iterations
      * - n = 10000 → cần 10000 lần lặp
+     * - n = 10000 → needs 10000 iterations
      */
     private static void demonstrateOn() {
         System.out.println("--- Ex2: O(n) - Linear Time ---");
@@ -127,7 +162,9 @@ public class BigOComplexity {
     
     /**
      * Tìm kiếm tuyến tính - O(n)
+     * Linear Search - O(n)
      * Duyệt qua từng phần tử từ đầu đến cuối cho đến khi tìm thấy
+     * Iterate through each element from start to end until found
      */
     private static int linearSearch(int[] arr, int target) {
         for (int i = 0; i < arr.length; i++) {
@@ -142,21 +179,34 @@ public class BigOComplexity {
      * Ex3: O(n^2) - Quadratic Time Complexity
      * 
      * Giải thích:
+     * Explanation:
      * - Thời gian chạy TỶ LỆ THUẬN với BÌNH PHƯƠNG của input size
+     * - Runtime is PROPORTIONAL to the SQUARE of input size
      * - Input tăng 2 lần → thời gian chạy tăng 4 lần (2^2)
+     * - Input doubles → runtime increases 4x (2^2)
      * - Input tăng 10 lần → thời gian chạy tăng 100 lần (10^2)
+     * - Input increases 10x → runtime increases 100x (10^2)
      * 
      * Công thức: f(n) = n^2 → O(f(n)) = O(n^2)
+     * Formula: f(n) = n^2 → O(f(n)) = O(n^2)
      * 
      * Ví dụ thực tế:
+     * Real-world examples:
      * - 2 vòng lặp lồng nhau duyệt qua tất cả phần tử
+     * - 2 nested loops iterating through all elements
+     * - Bubble Sort, Selection Sort, Insertion Sort
      * - Bubble Sort, Selection Sort, Insertion Sort
      * - Kiểm tra tất cả cặp phần tử trong array
+     * - Checking all pairs of elements in array
      * 
      * Ví dụ số liệu:
+     * Example data:
      * - n = 10 → cần 100 lần lặp (10^2)
+     * - n = 10 → needs 100 iterations (10^2)
      * - n = 100 → cần 10,000 lần lặp (100^2)
+     * - n = 100 → needs 10,000 iterations (100^2)
      * - n = 1000 → cần 1,000,000 lần lặp (1000^2)
+     * - n = 1000 → needs 1,000,000 iterations (1000^2)
      */
     private static void demonstrateOn2() {
         System.out.println("--- Ex3: O(n^2) - Quadratic Time ---");
@@ -206,18 +256,28 @@ public class BigOComplexity {
      * Ex4: O(log n) - Logarithmic Time Complexity
      * 
      * Giải thích:
+     * Explanation:
      * - Thời gian chạy TỶ LỆ THUẬN với LOGARITHM của input size
+     * - Runtime is PROPORTIONAL to LOGARITHM of input size
      * - Mỗi bước, input giảm đi một nửa
+     * - Each step, input is halved
      * - Rất hiệu quả với input lớn
+     * - Very efficient with large inputs
      * 
      * Công thức: f(n) = log₂(n) → O(f(n)) = O(log n)
+     * Formula: f(n) = log₂(n) → O(f(n)) = O(log n)
      * 
      * Lưu ý quan trọng:
+     * Important notes:
      * - Trong lập trình, log thường là log cơ số 2 (log₂)
+     * - In programming, log usually means base 2 logarithm (log₂)
      * - Khi viết O(log n), mặc định là log₂(n)
+     * - When writing O(log n), it defaults to log₂(n)
      * - Không có log cơ số 10 trong phân tích thuật toán
+     * - Base 10 logarithm is not used in algorithm analysis
      * 
      * Ví dụ số liệu log₂(n):
+     * Example data for log₂(n):
      * - n = 2 → log₂(2) = 1
      * - n = 4 → log₂(4) = 2
      * - n = 8 → log₂(8) = 3
@@ -226,9 +286,13 @@ public class BigOComplexity {
      * - n = 1,000,000 → log₂(1,000,000) ≈ 20
      * 
      * Ví dụ thực tế:
+     * Real-world examples:
      * - Binary Search (tìm kiếm nhị phân) trong array đã sắp xếp
+     * - Binary Search in sorted array
      * - Tìm kiếm trong Binary Search Tree (cân bằng)
+     * - Search in balanced Binary Search Tree
      * - Bất kỳ thuật toán nào "chia đôi" input mỗi lần
+     * - Any algorithm that "divides in half" the input each time
      */
     private static void demonstrateOLogN() {
         System.out.println("--- Ex4: O(log n) - Logarithmic Time ---");
@@ -277,10 +341,14 @@ public class BigOComplexity {
     /**
      * Binary Search - O(log n)
      * Tìm kiếm trong array ĐÃ SẮP XẾP bằng cách chia đôi mỗi lần
+     * Search in SORTED array by dividing in half each time
      * 
      * @param arr Array đã được sắp xếp tăng dần
+     * @param arr Sorted array in ascending order
      * @param target Giá trị cần tìm
+     * @param target Value to search for
      * @return Index của target nếu tìm thấy, -1 nếu không tìm thấy
+     * @return Index of target if found, -1 if not found
      */
     private static int binarySearch(int[] arr, int target) {
         int start = 0;
@@ -307,24 +375,36 @@ public class BigOComplexity {
      * Ex5: O(n log n) - Linearithmic Time Complexity
      * 
      * Giải thích:
+     * Explanation:
      * - Kết hợp giữa O(n) và O(log n)
+     * - Combination of O(n) and O(log n)
      * - Thường xuất hiện trong các thuật toán sắp xếp hiệu quả
+     * - Commonly appears in efficient sorting algorithms
      * - Tốt hơn O(n^2) nhưng chậm hơn O(n)
+     * - Better than O(n^2) but slower than O(n)
      * 
      * Công thức: f(n) = n × log₂(n) → O(f(n)) = O(n log n)
+     * Formula: f(n) = n × log₂(n) → O(f(n)) = O(n log n)
      * 
      * Ví dụ số liệu:
+     * Example data:
      * - n = 100 → n log n = 100 × log₂(100) ≈ 100 × 6.64 ≈ 664
      * - n = 1000 → n log n = 1000 × log₂(1000) ≈ 1000 × 9.97 ≈ 9,970
      * - n = 10,000 → n log n ≈ 132,877
      * 
      * So sánh với O(n^2):
+     * Comparison with O(n^2):
      * - n = 100 → n^2 = 10,000 (gấp 15 lần n log n)
+     * - n = 100 → n^2 = 10,000 (15x n log n)
      * - n = 1000 → n^2 = 1,000,000 (gấp 100 lần n log n)
+     * - n = 1000 → n^2 = 1,000,000 (100x n log n)
      * 
      * Ví dụ thực tế:
+     * Real-world examples:
+     * - Merge Sort, Quick Sort, Heap Sort
      * - Merge Sort, Quick Sort, Heap Sort
      * - Các thuật toán sắp xếp hiệu quả nhất (comparison-based)
+     * - Most efficient sorting algorithms (comparison-based)
      */
     private static void demonstrateONLogN() {
         System.out.println("--- Ex5: O(n log n) - Linearithmic Time ---");
@@ -360,6 +440,7 @@ public class BigOComplexity {
     /**
      * Merge Sort - O(n log n)
      * Thuật toán sắp xếp chia để trị (divide and conquer)
+     * Divide and conquer sorting algorithm
      */
     private static void mergeSort(int[] arr, int left, int right) {
         if (left < right) {
@@ -376,6 +457,7 @@ public class BigOComplexity {
     
     /**
      * Merge hai mảng con đã sắp xếp
+     * Merge two sorted subarrays
      */
     private static void merge(int[] arr, int left, int mid, int right) {
         int n1 = mid - left + 1;
@@ -414,26 +496,43 @@ public class BigOComplexity {
      * Ex6: O(n^3) - Cubic Time Complexity
      * 
      * Giải thích:
+     * Explanation:
      * - Thời gian chạy TỶ LỆ THUẬN với LẬP PHƯƠNG của input size
+     * - Runtime is PROPORTIONAL to the CUBE of input size
      * - Input tăng 2 lần → thời gian chạy tăng 8 lần (2^3)
+     * - Input doubles → runtime increases 8x (2^3)
      * - Input tăng 10 lần → thời gian chạy tăng 1000 lần (10^3)
+     * - Input increases 10x → runtime increases 1000x (10^3)
      * - Rất chậm, nên tránh khi có thể
+     * - Very slow, should be avoided when possible
      * 
      * Công thức: f(n) = n^3 → O(f(n)) = O(n^3)
+     * Formula: f(n) = n^3 → O(f(n)) = O(n^3)
      * 
      * Ví dụ số liệu:
+     * Example data:
      * - n = 10 → cần 1,000 lần lặp (10^3)
+     * - n = 10 → needs 1,000 iterations (10^3)
      * - n = 100 → cần 1,000,000 lần lặp (100^3)
+     * - n = 100 → needs 1,000,000 iterations (100^3)
      * - n = 1000 → cần 1,000,000,000 lần lặp (1000^3)
+     * - n = 1000 → needs 1,000,000,000 iterations (1000^3)
      * 
      * Ví dụ thực tế:
+     * Real-world examples:
      * - 3 vòng lặp lồng nhau
+     * - 3 nested loops
      * - Thuật toán tìm tất cả bộ ba (triplets) trong array
+     * - Algorithm to find all triplets in array
      * - Một số thuật toán ma trận (matrix multiplication naive)
+     * - Some matrix algorithms (naive matrix multiplication)
      * 
      * Lưu ý quan trọng:
+     * Important notes:
      * - Khi có nhiều vòng lặp lồng nhau, cộng các vòng lặp song song
+     * - When having nested loops, multiply complexities; for parallel loops, add them
      * - Bỏ qua constants và lower order terms khi tính Big O
+     * - Ignore constants and lower order terms when calculating Big O
      */
     private static void demonstrateOn3() {
         System.out.println("--- Ex6: O(n^3) - Cubic Time ---");
