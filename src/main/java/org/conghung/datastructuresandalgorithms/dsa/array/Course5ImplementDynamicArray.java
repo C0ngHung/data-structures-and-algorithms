@@ -6,14 +6,21 @@ public class Course5ImplementDynamicArray<T> implements Iterable<T> {
     /*
     - Requirements:
     - Trong Java thì chúng ta có ArrayList là 1 dynamic array.
+    - In Java we have ArrayList as a built-in dynamic array.
     1. Implement a dynamic array that can grow and shrink in size as elements are added or removed.
     2. Nếu số lượng elements vượt quá kích thước hiện tại của mảng, thì mảng sẽ tự động tăng kích thước (thường là gấp đôi).
+    2. If the number of elements exceeds the current capacity, the array automatically grows (typically doubles).
     3. Nếu số lượng elements giảm xuống dưới một ngưỡng nhất định (ví dụ: 1/4 kích thước hiện tại), thì mảng sẽ tự động giảm kích thước (thường là giảm một nửa).
+    3. If the number of elements drops below a threshold (e.g., 1/4 of current capacity), the array automatically shrinks (often halves).
     4. Trong Dynamic Array chúng ta sẽ có 1 cái static array và có 1 size cố dịnh khi ta new Dynamic Array.
+    4. Inside a dynamic array we keep a static array with a fixed size when we instantiate the dynamic array.
     mà chúng ta khổng bỏ 1 list hoặc cái size nào đó cho Dynamic Array đó thì nó sẽ tự động add size nào đó default vào trong static array
+    if we do not pass an initial list or size, the dynamic array will automatically use a default capacity for its internal static array.
     ở bên trong dynamic array đó.
+    inside that dynamic array.
     5. capacity: kích thước hiện tại của mảng. sức chứa hiện tại của mảng.
-
+    5. capacity: the current length of the array, representing its holding capacity.
+    
      */
 
     private T[] array;
@@ -80,7 +87,7 @@ public class Course5ImplementDynamicArray<T> implements Iterable<T> {
     }
 
     public void removeAt(int removeIndex) {
-        if (removeIndex <= 0 || removeIndex >= size)
+        if (removeIndex < 0 || removeIndex >= size)
             throw new IndexOutOfBoundsException("Index out of bounds " + removeIndex);
         T[] newArray = (T[]) new Object[size - 1];
         for (int oldArrayIndex = 0, newArrayIndex = 0; oldArrayIndex < size; oldArrayIndex++, newArrayIndex++) {

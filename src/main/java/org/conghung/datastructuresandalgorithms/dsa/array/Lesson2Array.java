@@ -5,28 +5,33 @@ import java.util.Arrays;
 
 /**
  * Lesson 2: Array - Cấu trúc dữ liệu cơ bản nhất
+ * Lesson 2: Array - The most basic data structure
  * 
  * Array (Mảng) là gì?
+ * What is an Array?
  * - Array là một cấu trúc dữ liệu lưu trữ một tập hợp các phần tử cùng kiểu dữ liệu
- * - Các phần tử được lưu trữ LIÊN TIẾP nhau trong bộ nhớ
- * - Mỗi phần tử được truy cập thông qua INDEX (chỉ số)
- * - Index luôn bắt đầu từ 0 (zero-based indexing)
  * - An array stores a collection of elements of the same type
+ * - Các phần tử được lưu trữ LIÊN TIẾP nhau trong bộ nhớ
  * - Elements are stored CONTIGUOUSLY in memory
+ * - Mỗi phần tử được truy cập thông qua INDEX (chỉ số)
  * - Each element is accessed via an INDEX (zero-based)
+ * - Index luôn bắt đầu từ 0 (zero-based indexing)
+ * - Index always starts from 0 (zero-based indexing)
  * 
- * Đặc điểm quan trọng: - Characteristics:
+ * Đặc điểm quan trọng:
+ * Important characteristics:
  * - Array lưu địa chỉ bắt đầu của vùng nhớ
- * - Khi truy cập arr[i], máy tính tính: địa chỉ_bắt_đầu + (i × kích_thước_phần_tử)
- * - Đây là lý do tại sao truy cập array rất nhanh: O(1)
  * - The array stores the starting address of its memory block
+ * - Khi truy cập arr[i], máy tính tính: địa chỉ_bắt_đầu + (i × kích_thước_phần_tử)
  * - Accessing arr[i] = base_address + (i × element_size)
+ * - Đây là lý do tại sao truy cập array rất nhanh: O(1)
  * - Direct address calculation → O(1) access
  * 
  * Trong Java có 2 loại Array:
+ * In Java there are 2 types of Array:
  * 1. Static Array (Array tĩnh): Kích thước cố định, không thể thay đổi
- * 2. Dynamic Array (ArrayList): Kích thước có thể thay đổi
  * 1. Static Array: fixed size, cannot change after creation
+ * 2. Dynamic Array (ArrayList): Kích thước có thể thay đổi
  * 2. Dynamic Array (ArrayList): resizable
  */
 public class Lesson2Array {
@@ -47,61 +52,79 @@ public class Lesson2Array {
     /**
      * ============================================
      * PHẦN 1: STATIC ARRAY (ARRAY TĨNH)
+     * PART 1: STATIC ARRAY
      * ============================================
      * 
      * Đặc điểm:
+     * Characteristics:
      * - Kích thước CỐ ĐỊNH, không thể thay đổi sau khi khởi tạo
-     * - Phải khai báo kích thước khi tạo array
-     * - Java cấp phát một vùng nhớ LIÊN TIẾP có kích thước cố định
-     * - Phần tử đầu tiên (index 0) là địa chỉ bắt đầu của array
-     * - Nếu truy cập index ngoài phạm vi → ArrayIndexOutOfBoundsException
-    * Characteristics:
      * - FIXED size, cannot change after creation
+     * - Phải khai báo kích thước khi tạo array
      * - Must provide length at creation time
+     * - Java cấp phát một vùng nhớ LIÊN TIẾP có kích thước cố định
      * - Java allocates one CONTIGUOUS memory block
+     * - Phần tử đầu tiên (index 0) là địa chỉ bắt đầu của array
      * - First element (index 0) is at the starting address
+     * - Nếu truy cập index ngoài phạm vi → ArrayIndexOutOfBoundsException
      * - Accessing out-of-range index → ArrayIndexOutOfBoundsException
      * 
      * Cách hoạt động trong bộ nhớ:
+     * Memory layout:
      * - Khi khai báo: int[] arr = new int[5]
-     * - Java tìm một vùng nhớ liên tiếp đủ 5 × 4 bytes (int = 4 bytes)
-     * - Lưu địa chỉ bắt đầu vào biến arr
-     * - arr[0] = địa chỉ bắt đầu
-     * - arr[1] = địa chỉ bắt đầu + 4 bytes
-     * - arr[2] = địa chỉ bắt đầu + 8 bytes
-    * Memory layout:
      * - Example: int[] arr = new int[5]
+     * - Java tìm một vùng nhớ liên tiếp đủ 5 × 4 bytes (int = 4 bytes)
      * - Needs 5 × 4 bytes (int = 4 bytes) in one contiguous block
+     * - Lưu địa chỉ bắt đầu vào biến arr
+     * - Stores the starting address in variable arr
+     * - arr[0] = địa chỉ bắt đầu
      * - arr[0] = base address
+     * - arr[1] = địa chỉ bắt đầu + 4 bytes
      * - arr[1] = base address + 4 bytes
+     * - arr[2] = địa chỉ bắt đầu + 8 bytes
      * - arr[2] = base address + 8 bytes
      * 
      * Big O Complexity:
      * - Access (Truy cập): O(1) - Truy cập trực tiếp bằng index
+     * - Access: O(1) - Direct access by index
      * - Search (Tìm kiếm): O(n) - Phải duyệt qua tất cả phần tử
+     * - Search: O(n) - Must traverse all elements
      * - Insert: N/A - Không thể thêm phần tử mới (kích thước cố định)
+     * - Insert: N/A - Cannot add new elements (size is fixed)
      * - Update: O(1) - Cập nhật phần tử tại index
-     * - Delete: N/A - Không thể xóa phần tử (chỉ có thể set = null hoặc giá trị mặc định)
-    * Big O:
-     * - Access: O(1)
-     * - Search: O(n)
-     * - Insert: N/A (size is fixed)
-     * - Update: O(1)
-     * - Delete: N/A (can only overwrite with default/null)
-     * Ưu điểm - Pros:
-     * - Truy cập nhanh: O(1) - Fast access O(1)
-     * - Tiết kiệm bộ nhớ (không có overhead) - Low memory overhead
-     * - Đơn giản, dễ sử dụng - simple and easy to use
+     * - Update: O(1) - Update element at index
+     * - Delete: N/A - Không thể xóa phần tử
+     *   + Với primitive array (int[], char[], ...): chỉ có thể ghi đè bằng giá trị mặc định (0, false, '\0', ...)
+     *   + Với Object array (String[], Integer[], ...): có thể ghi đè bằng null
+     * - Delete: N/A - Cannot delete elements
+     *   + For primitive arrays (int[], char[], ...): can only overwrite with default value (0, false, '\0', ...)
+     *   + For Object arrays (String[], Integer[], ...): can overwrite with null
      * 
-     * Nhược điểm - Cons:
-     * - Kích thước cố định, không linh hoạt - Fixed size, not flexible
-     * - Không thể thêm/xóa phần tử - Cannot add/remove elements
-     * - Phải biết kích thước trước - Must know size before creation
+     * Ưu điểm:
+     * Pros:
+     * - Truy cập nhanh: O(1)
+     * - Fast access: O(1)
+     * - Tiết kiệm bộ nhớ (không có overhead)
+     * - Low memory overhead
+     * - Đơn giản, dễ sử dụng
+     * - Simple and easy to use
      * 
+     * Nhược điểm:
+     * Cons:
+     * - Kích thước cố định, không linh hoạt
+     * - Fixed size, not flexible
+     * - Không thể thêm/xóa phần tử
+     * - Cannot add/remove elements
+     * - Phải biết kích thước trước
+     * - Must know size before creation
+     * 
+     * Khi nào nên dùng Static Array?
      * When to use Static Array?
-     * - Khi biết chính xác số lượng phần tử - When you know the exact number of elements
-     * - Khi cần hiệu suất cao (truy cập nhanh) - When you need high performance (fast access)
-     * - Làm buffer, lookup table, return type - For buffer, lookup table, return type
+     * - Khi biết chính xác số lượng phần tử
+     * - When you know the exact number of elements
+     * - Khi cần hiệu suất cao (truy cập nhanh)
+     * - When you need high performance (fast access)
+     * - Làm buffer, lookup table, return type
+     * - For buffer, lookup table, return type
      */
     private static void demonstrateStaticArray() {
         System.out.println("--- PHẦN 1: STATIC ARRAY (ARRAY TĨNH) ---\n");
@@ -164,6 +187,7 @@ public class Lesson2Array {
     
     /**
      * Tìm kiếm tuyến tính trong Static Array - O(n)
+     * Linear search in Static Array - O(n)
      */
     private static int linearSearch(int[] arr, int target) {
         for (int i = 0; i < arr.length; i++) {
@@ -177,42 +201,71 @@ public class Lesson2Array {
     /**
      * ============================================
      * PHẦN 2: DYNAMIC ARRAY (ARRAYLIST)
+     * PART 2: DYNAMIC ARRAY (ARRAYLIST)
      * ============================================
      * 
-     * Đặc điểm: - Characteristics:
-     * - Kích thước CÓ THỂ THAY ĐỔI sau khi khởi tạo - Resizable after creation
-     * - Tự động mở rộng khi thêm phần tử - Automatically grow when adding elements
-     * - Tự động thu nhỏ khi xóa phần tử (tùy implementation) - Automatically shrink when deleting elements (depends on implementation)
-     * - Trong Java: ArrayList là implementation của Dynamic Array - In Java: ArrayList is an implementation of Dynamic Array
+     * Đặc điểm:
+     * Characteristics:
+     * - Kích thước CÓ THỂ THAY ĐỔI sau khi khởi tạo
+     * - Resizable after creation
+     * - Tự động mở rộng khi thêm phần tử
+     * - Automatically grow when adding elements
+     * - KHÔNG tự động thu nhỏ khi xóa phần tử (capacity giữ nguyên)
+     * - Does NOT automatically shrink when deleting elements (capacity remains unchanged)
+     * - Trong Java: ArrayList là implementation của Dynamic Array
+     * - In Java: ArrayList is an implementation of Dynamic Array
      * 
-     * Cách hoạt động: - How it works:
-     * - Ban đầu: ArrayList có capacity (dung lượng) mặc định (thường là 10) - Initially: ArrayList has a default capacity (usually 10)
-     * - Khi thêm phần tử: - When adding elements:
-     *   + Nếu còn chỗ → thêm trực tiếp: O(1) - If there is space: add directly: O(1)
-     *   + Nếu hết chỗ → tạo array mới gấp đôi, copy toàn bộ → O(n) - If full: create new array double size, copy all: O(n)
-     * - Khi xóa phần tử: phải dịch chuyển các phần tử còn lại → O(n) - When deleting elements: must shift remaining elements: O(n)
+     * Cách hoạt động:
+     * How it works:
+     * - Ban đầu: ArrayList có capacity (dung lượng) mặc định (thường là 10)
+     * - Initially: ArrayList has a default capacity (usually 10)
+     * - Khi thêm phần tử:
+     * - When adding elements:
+     *   + Nếu còn chỗ → thêm trực tiếp: O(1)
+     *   + If there is space: add directly: O(1)
+     *   + Nếu hết chỗ → tạo array mới gấp đôi, copy toàn bộ → O(n)
+     *   + If full: create new array double size, copy all: O(n)
+     * - Khi xóa phần tử: phải dịch chuyển các phần tử còn lại → O(n)
+     * - When deleting elements: must shift remaining elements: O(n)
      * 
      * Big O Complexity:
-     * - Access (Truy cập): O(1) - Giống Static Array - Same as Static Array
-     * - Search (Tìm kiếm): O(n) - Phải duyệt qua tất cả phần tử - Must traverse all elements
-     * - Insert (Chèn vào giữa): O(n) - Phải dịch chuyển các phần tử - Must shift elements
-     * - Append (Thêm vào cuối): O(1) amortized - Thường O(1), đôi khi O(n) khi resize - Usually O(1), sometimes O(n) when resize
-     * - Delete (Xóa): O(n) - Phải dịch chuyển các phần tử - Must shift elements
+     * - Access (Truy cập): O(1) - Giống Static Array
+     * - Access: O(1) - Same as Static Array
+     * - Search (Tìm kiếm): O(n) - Phải duyệt qua tất cả phần tử
+     * - Search: O(n) - Must traverse all elements
+     * - Insert (Chèn vào giữa): O(n) - Phải dịch chuyển các phần tử
+     * - Insert: O(n) - Must shift elements
+     * - Append (Thêm vào cuối): O(1) amortized - Thường O(1), đôi khi O(n) khi resize
+     * - Append: O(1) amortized - Usually O(1), sometimes O(n) when resize
+     * - Delete (Xóa): O(n) - Phải dịch chuyển các phần tử
+     * - Delete: O(n) - Must shift elements
      * 
-     * Ưu điểm - Pros:
-     * - Linh hoạt: có thể thêm/xóa phần tử - Flexible: can add/remove elements
-     * - Không cần biết kích thước trước - No need to know size before creation
-     * - Truy cập nhanh: O(1) - Fast access: O(1)
+     * Ưu điểm:
+     * Pros:
+     * - Linh hoạt: có thể thêm/xóa phần tử
+     * - Flexible: can add/remove elements
+     * - Không cần biết kích thước trước
+     * - No need to know size before creation
+     * - Truy cập nhanh: O(1)
+     * - Fast access: O(1)
      * 
-     * Nhược điểm - Cons:
-     * - Chèn/xóa chậm hơn: O(n) - Slower insert/delete: O(n)
-     * - Tốn bộ nhớ hơn (có overhead) - More memory overhead (has overhead)
-     * - Khi resize có thể tốn thời gian - When resize can take time
+     * Nhược điểm:
+     * Cons:
+     * - Chèn/xóa chậm hơn: O(n)
+     * - Slower insert/delete: O(n)
+     * - Tốn bộ nhớ hơn (có overhead)
+     * - More memory overhead (has overhead)
+     * - Khi resize có thể tốn thời gian
+     * - When resize can take time
      * 
-     * Khi nào dùng Dynamic Array? - When to use Dynamic Array?
-     * - Khi không biết trước số lượng phần tử - When you don't know the exact number of elements
-     * - Khi cần thêm/xóa phần tử thường xuyên - When you need to add/remove elements frequently
-     * - Khi cần truy cập nhanh bằng index - When you need fast access by index
+     * Khi nào dùng Dynamic Array?
+     * When to use Dynamic Array?
+     * - Khi không biết trước số lượng phần tử
+     * - When you don't know the exact number of elements
+     * - Khi cần thêm/xóa phần tử thường xuyên
+     * - When you need to add/remove elements frequently
+     * - Khi cần truy cập nhanh bằng index
+     * - When you need fast access by index
      */
     private static void demonstrateDynamicArray() {
         System.out.println("--- PHẦN 2: DYNAMIC ARRAY (ARRAYLIST) ---\n");
@@ -297,6 +350,7 @@ public class Lesson2Array {
     
     /**
      * So sánh Static Array vs Dynamic Array
+     * Compare Static Array vs Dynamic Array
      */
     private static void compareStaticAndDynamic() {
         System.out.println("--- SO SÁNH STATIC ARRAY vs DYNAMIC ARRAY ---\n");
