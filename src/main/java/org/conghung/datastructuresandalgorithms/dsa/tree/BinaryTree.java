@@ -59,10 +59,7 @@ public class BinaryTree {
      * - Duyệt cây dựa trên 3: d là (data/node root hiện tại), l là (left), r là (right): DLR, LDR, LRD...
      * - Tree traversal based on 3 elements: d is (data/current root node), l is (left), r is (right): DLR, LDR, LRD...
      * - Traversal LDR (Inorder Traversal): left -> data -> right
-     * - Traversal LDR (Inorder Traversal): left -> data -> right
      * - Traversal DLR (Preorder Traversal): data -> left -> right
-     * - Traversal DLR (Preorder Traversal): data -> left -> right
-     * - Traversal LRD (Postorder Traversal): left -> right -> data
      * - Traversal LRD (Postorder Traversal): left -> right -> data
      * - Nếu level order traversal (BFS) thì ta sẽ duyệt từ trên xuống dưới, từ trái sang phải
      * - For level order traversal (BFS), we traverse from top to bottom, left to right
