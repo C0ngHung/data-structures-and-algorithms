@@ -12,17 +12,17 @@
 - [x] **Recursion** — Recursion patterns
 - [x] **Bubble Sort** — Generic sort + early termination optimization
 - [x] **Insertion Sort** — Generic sort with shift-based insertion
+- [x] **Quick Sort** — Lomuto partition, đệ quy Divide & Conquer
 
 ## What's Left to Build
 
 - [ ] **Merge Sort** — Package exists (`algorithm/mergeSort/`), no implementation yet
-- [ ] **Quick Sort** — Package exists (`algorithm/quickSort/`), no implementation yet
 - [ ] **JUnit Tests** — Only 1 test file exists; need comprehensive unit tests
 - [ ] **Advanced Data Structures** — Heap, Graph, Trie (not yet planned)
 
 ## Current Status
 
-**~80% complete** — All fundamental data structures done. Bubble Sort & Insertion Sort implemented. Merge Sort, Quick Sort, and testing remain.
+**~85% complete** — All fundamental data structures + 3 sorting algorithms done (Bubble, Insertion, Quick). Merge Sort and testing remain.
 
 ## Known Issues
 
