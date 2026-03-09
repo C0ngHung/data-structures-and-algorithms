@@ -15,7 +15,7 @@
      Khác với Merge Sort chia đều rồi merge, Quick Sort chia theo giá trị (partition)
      nên không cần mảng phụ — sort in-place. -->
 
-- **Chọn pivot:** lấy 1 phần tử làm mốc (ở đây chọn phần tử cuối).
+- **Chọn pivot:** lấy 1 phần tử làm mốc (ở đây chọn phần tử đầu).
 - **Partition:** duyệt mảng, đưa tất cả phần tử ≤ pivot sang trái, > pivot sang phải. Pivot về đúng vị trí cuối cùng.
 - **Đệ quy:** sort nửa trái (trước pivot) và nửa phải (sau pivot).
 - **Base case:** mảng 0 hoặc 1 phần tử → đã sorted.

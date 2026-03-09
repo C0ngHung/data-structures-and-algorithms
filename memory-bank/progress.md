@@ -16,16 +16,16 @@
 
 ## What's Left to Build
 
-- [ ] **Merge Sort** — Package exists (`algorithm/mergeSort/`), no implementation yet
+- [x] **Merge Sort** — Generic sort + Divide & Conquer merge
 - [ ] **JUnit Tests** — Only 1 test file exists; need comprehensive unit tests
 - [ ] **Advanced Data Structures** — Heap, Graph, Trie (not yet planned)
 
 ## Current Status
 
-**~85% complete** — All fundamental data structures + 3 sorting algorithms done (Bubble, Insertion, Quick). Merge Sort and testing remain.
+**~90% complete** — All fundamental data structures + 4 sorting algorithms done (Bubble, Insertion, Quick, Merge). Testing remains.
 
 ## Known Issues
 
-- Merge Sort and Quick Sort directories still empty
+- Quick Sort doc section 1 pivot description was inconsistent (fixed)
 - Most "tests" are `main()` demos rather than formal JUnit tests
 - `BigOComplexity.java` includes a `mergeSort` implementation that could be extracted to the `algorithm/mergeSort/` package

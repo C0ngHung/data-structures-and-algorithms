@@ -29,12 +29,6 @@ public class InsertionSort {
         }
     }
 
-    private static <T> void swap(T[] arr, int i, int j) {
-        T temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-
     public static void main(String[] args) {
         Integer[] numbers = {64, 34, 25, 12, 22, 11, 90};
 
