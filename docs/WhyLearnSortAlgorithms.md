@@ -309,7 +309,99 @@ Insertion Sort tư duy:
 
 ---
 
-## 5. Java nội bộ dùng thuật toán nào?
+## 5. Quick Sort vs Merge Sort — Chọn cái nào cho bài toán nào?
+
+<!-- Cả 2 đều O(n log n) trung bình, nhưng trade-off khác nhau hoàn toàn.
+     Hiểu trade-off = biết chọn đúng tool cho đúng job.
+     Đây là câu hỏi phỏng vấn kinh điển ở mọi level. -->
+
+Cả hai đều **Divide and Conquer**, cả hai đều **O(n log n)** trung bình. Vậy khác gì?
+
+### Trade-off cốt lõi
+
+| Tiêu chí | Quick Sort | Merge Sort |
+|---|---|---|
+| **Tốc độ thực tế** | ⭐ Nhanh hơn ~2-3x (cache-friendly) | Chậm hơn vì copy mảng tạm |
+| **Worst case** | ❌ O(n²) nếu pivot xấu | ✅ Luôn O(n log n) |
+| **Bộ nhớ** | ✅ O(log n) — in-place | ❌ O(n) — cần mảng tạm |
+| **Stable** | ❌ Không | ✅ Có |
+| **Công việc nặng ở đâu** | Khi CHIA (partition) | Khi GHÉP (merge) |
+
+### Bảng quyết định theo bài toán
+
+| Bài toán cụ thể | Chọn | Lý do |
+|---|---|---|
+| Sort `int[]`, `double[]` (primitive) | **Quick Sort** | Không cần stable, in-place, nhanh nhất thực tế |
+| Sort `Object[]` (Student, Order, ...) | **Merge Sort** | Cần stable — 2 object cùng giá trị phải giữ thứ tự |
+| Bộ nhớ RAM rất hạn chế | **Quick Sort** | O(log n) stack vs O(n) mảng tạm |
+| Không chấp nhận worst case O(n²) | **Merge Sort** | Luôn O(n log n), không phụ thuộc input |
+| Sort file lớn trên đĩa (External Sort) | **Merge Sort** | Merge chỉ cần đọc tuần tự — phù hợp I/O disk |
+| Sort Linked List | **Merge Sort** | Merge linked list = O(1) space, Quick Sort cần random access |
+| Mảng nhỏ (< 50 phần tử) | **Insertion Sort** | Overhead đệ quy không đáng — Insertion Sort nhanh hơn |
+| Dữ liệu gần sorted | **Insertion Sort** | O(n) best case, cả Quick Sort và Merge Sort vẫn chạy đầy đủ |
+
+### 3 câu hỏi để quyết định
+
+Mỗi khi phân vân, tự hỏi 3 câu:
+
+```
+1. Cần stable không?
+   → Có  → Merge Sort
+   → Không → Quick Sort OK
+
+2. Bộ nhớ có giới hạn không?
+   → Có  → Quick Sort (in-place)
+   → Không → Merge Sort OK
+
+3. Worst case O(n²) có chấp nhận được không?
+   → Không → Merge Sort (luôn O(n log n))
+   → Được  → Quick Sort + random pivot là đủ
+```
+
+> **Nếu cả 3 câu đều "không quan trọng"** → chọn **Quick Sort** vì trung bình nhanh hơn nhờ **cache locality** — dữ liệu nằm liền kề trong RAM nên CPU cache hit nhiều hơn, ít phải đọc từ bộ nhớ chính.
+
+### Tại sao thực tế dùng Hybrid — không ai chọn 1?
+
+<!-- Đây là insight quan trọng nhất: production code KHÔNG dùng thuần 1 thuật toán.
+     Mỗi thuật toán có "vùng sweet spot" — hybrid kết hợp các sweet spot lại. -->
+
+```
+Java Arrays.sort():
+├── primitive (int[], double[])
+│   └── Dual-Pivot Quick Sort
+│       └── mảng < 47 → Insertion Sort
+│
+└── Object[] (String[], Student[])
+    └── TimSort (= Merge Sort + Insertion Sort)
+        └── chia thành "run" (đoạn đã sorted) → merge các run
+
+C++ std::sort():
+└── IntroSort (= Quick Sort + Heap Sort + Insertion Sort)
+    ├── bắt đầu bằng Quick Sort
+    ├── đệ quy quá sâu (> 2×log n) → Heap Sort (tránh O(n²))
+    └── mảng nhỏ → Insertion Sort
+
+Python sorted():
+└── TimSort (giống Java)
+    └── Merge Sort + Insertion Sort
+```
+
+> **Insight:** Mỗi thuật toán có "vùng ngọt" (sweet spot) riêng. Production code **kết hợp các sweet spot** thay vì ép 1 thuật toán làm mọi thứ.
+
+| Thuật toán | Sweet Spot |
+|---|---|
+| **Insertion Sort** | Mảng nhỏ (< 50), gần sorted |
+| **Quick Sort** | Mảng vừa-lớn, dữ liệu ngẫu nhiên, cần in-place |
+| **Merge Sort** | Cần stable, cần đảm bảo O(n log n), external sort |
+| **Heap Sort** | Backup khi Quick Sort rơi vào worst case |
+
+### Tóm 1 câu
+
+> **Quick Sort = default choice** vì nhanh nhất thực tế. Chỉ chuyển sang **Merge Sort** khi cần **stable**, cần **đảm bảo O(n log n)**, hoặc sort **linked list / external data**.
+
+---
+
+## 6. Java nội bộ dùng thuật toán nào?
 
 <!-- Bảng này cho thấy Java dùng TẤT CẢ các thuật toán bạn đang học. -->
 
