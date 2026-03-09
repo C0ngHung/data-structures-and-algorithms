@@ -10,10 +10,11 @@
 - [x] **Hash Table** — ADT interface + Separate Chaining + Definition + Node + Tests
 - [x] **Tree** — ADT interface + Binary Tree + BST + Definition + Node + Traverse Types + Tests
 - [x] **Recursion** — Recursion patterns
+- [x] **Bubble Sort** — Generic sort + early termination optimization
+- [x] **Insertion Sort** — Generic sort with shift-based insertion
 
 ## What's Left to Build
 
-- [ ] **Bubble Sort** — Package exists (`algorithm/bubbleSort/`), no implementation yet
 - [ ] **Merge Sort** — Package exists (`algorithm/mergeSort/`), no implementation yet
 - [ ] **Quick Sort** — Package exists (`algorithm/quickSort/`), no implementation yet
 - [ ] **JUnit Tests** — Only 1 test file exists; need comprehensive unit tests
@@ -21,10 +22,10 @@
 
 ## Current Status
 
-**~70% complete** — All fundamental data structures done. Sorting algorithms and testing are the main gaps.
+**~80% complete** — All fundamental data structures done. Bubble Sort & Insertion Sort implemented. Merge Sort, Quick Sort, and testing remain.
 
 ## Known Issues
 
-- Algorithm directories are empty (no `.java` files)
+- Merge Sort and Quick Sort directories still empty
 - Most "tests" are `main()` demos rather than formal JUnit tests
 - `BigOComplexity.java` includes a `mergeSort` implementation that could be extracted to the `algorithm/mergeSort/` package
