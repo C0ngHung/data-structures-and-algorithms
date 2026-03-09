@@ -46,8 +46,8 @@
 
 | Chiến lược | Cách chọn | Ưu điểm | Nhược điểm |
 |---|---|---|---|
-| **Phần tử cuối** (code của ta) | `pivot = arr[high]` | Đơn giản nhất | Worst case khi mảng đã sorted |
-| **Phần tử đầu** | `pivot = arr[low]` | Đơn giản | Worst case khi mảng đã sorted |
+| **Phần tử đầu** (code của ta) | `pivot = arr[low]` | Đơn giản, dễ hình dung | Worst case khi mảng đã sorted |
+| **Phần tử cuối** | `pivot = arr[high]` | Đơn giản | Worst case khi mảng đã sorted |
 | **Phần tử giữa** | `pivot = arr[(low+high)/2]` | Tránh worst case sorted | Vẫn có thể xấu |
 | **Random** | `pivot = arr[random(low, high)]` | Tránh worst case có chủ đích | Cần random generator |
 | **Median-of-three** | Lấy median của `arr[low]`, `arr[mid]`, `arr[high]` | **Tốt nhất thực tế** | Phức tạp hơn |
@@ -74,21 +74,21 @@
 #### Ví dụ trực quan:
 
 ```
-Input:  [5, 3, 8, 1, 2]     pivot = 2 (phần tử cuối)
+Input:  [5, 3, 8, 1, 2]     pivot = 5 (phần tử đầu)
 
-Trước:  [  5,  3,  8,  1  |  2  ]
-         ← chưa phân loại →  pivot
+Trước:  [  5  |  3,  8,  1,  2  ]
+        pivot   ← chưa phân loại →
 
-Partition:
-  5 > 2 → phải     [5, 3, 8, 1 | 2]
-  3 > 2 → phải     [5, 3, 8, 1 | 2]
-  8 > 2 → phải     [5, 3, 8, 1 | 2]
-  1 ≤ 2 → trái     [1, 3, 8, 5 | 2]  ← swap 1 và 5
-  Đặt pivot:        [1, 2, 8, 5, 3]   ← swap 2 vào vị trí giữa
+Partition (duyệt từ index 1 đến 4):
+  3 ≤ 5 → trái     [5, 3, 8, 1, 2]  (i=1, swap arr[1]↔arr[1], tự swap)
+  8 > 5 → phải     [5, 3, 8, 1, 2]  (bỏ qua)
+  1 ≤ 5 → trái     [5, 3, 1, 8, 2]  (i=2, swap arr[2]↔arr[3])
+  2 ≤ 5 → trái     [5, 3, 1, 2, 8]  (i=3, swap arr[3]↔arr[4])
+  Đặt pivot:        [2, 3, 1, 5, 8]  ← swap pivot (arr[0]) với arr[3]
 
-Sau:    [  1  |  2  |  8,  5,  3  ]
-         ≤ 2   PIVOT    > 2
-         ✅ đúng chỗ rồi!
+Sau:    [  2,  3,  1  |  5  |  8  ]
+            ≤ 5        PIVOT   > 5
+                       ✅ đúng chỗ rồi!
 ```
 
 #### Lomuto vs Hoare Partition:
@@ -131,66 +131,65 @@ Sau:    [  1  |  2  |  8,  5,  3  ]
 
 ---
 
-### 🔄 Lần 1: `quickSort(arr, 0, 4)` — pivot = `2` (arr[4])
+### 🔄 Lần 1: `quickSort(arr, 0, 4)` — pivot = `5` (arr[0])
 
-<!-- partition(arr, 0, 4): pivot = 2, i = -1, j duyệt từ 0 đến 3.
-     Tìm tất cả phần tử <= 2 và đưa về bên trái. -->
+<!-- partition(arr, 0, 4): pivot = 5, i = 0, j duyệt từ 1 đến 4.
+     Tìm tất cả phần tử <= 5 và đưa về bên trái. -->
 
-| Bước | `j` | So sánh `arr[j]` vs pivot `2` | Hành động                       | `i` | Mảng              |
+| Bước | `j` | So sánh `arr[j]` vs pivot `5` | Hành động                       | `i` | Mảng              |
 | ---- | --- | ----------------------------- | ------------------------------- | --- | ----------------- |
-| 1    | 0   | `5 <= 2`? ❌                  | Bỏ qua                          | -1  | `[5, 3, 8, 1, 2]` |
-| 2    | 1   | `3 <= 2`? ❌                  | Bỏ qua                          | -1  | `[5, 3, 8, 1, 2]` |
-| 3    | 2   | `8 <= 2`? ❌                  | Bỏ qua                          | -1  | `[5, 3, 8, 1, 2]` |
-| 4    | 3   | `1 <= 2`? ✅                  | `i=0`, swap `arr[0]` ↔ `arr[3]` | 0   | `[1, 3, 8, 5, 2]` |
-| End  | —   | —                             | swap pivot: `arr[1]` ↔ `arr[4]` | —   | `[1, 2, 8, 5, 3]` |
+| 1    | 1   | `3 <= 5`? ✅                  | `i=1`, swap `arr[1]` ↔ `arr[1]` (tự swap) | 1   | `[5, 3, 8, 1, 2]` |
+| 2    | 2   | `8 <= 5`? ❌                  | Bỏ qua                          | 1   | `[5, 3, 8, 1, 2]` |
+| 3    | 3   | `1 <= 5`? ✅                  | `i=2`, swap `arr[2]` ↔ `arr[3]` | 2   | `[5, 3, 1, 8, 2]` |
+| 4    | 4   | `2 <= 5`? ✅                  | `i=3`, swap `arr[3]` ↔ `arr[4]` | 3   | `[5, 3, 1, 2, 8]` |
+| End  | —   | —                             | swap pivot: `arr[0]` ↔ `arr[3]` | —   | `[2, 3, 1, 5, 8]` |
 
-> Pivot `2` về đúng vị trí `[1]` ✅. Trái: `[1]`, Phải: `[8, 5, 3]`
+> Pivot `5` về đúng vị trí `[3]` ✅. Trái: `[2, 3, 1]`, Phải: `[8]`
 
 ---
 
-### 🔄 Lần 2: `quickSort(arr, 0, 0)` — mảng `[1]`
+### 🔄 Lần 2: `quickSort(arr, 0, 2)` — pivot = `2` (arr[0])
+
+<!-- partition(arr, 0, 2): pivot = 2, i = 0, j duyệt từ 1 đến 2. -->
+
+| Bước | `j` | So sánh `arr[j]` vs pivot `2` | Hành động                       | `i` | Mảng              |
+| ---- | --- | ----------------------------- | ------------------------------- | --- | ----------------- |
+| 1    | 1   | `3 <= 2`? ❌                  | Bỏ qua                          | 0   | `[2, 3, 1, 5, 8]` |
+| 2    | 2   | `1 <= 2`? ✅                  | `i=1`, swap `arr[1]` ↔ `arr[2]` | 1   | `[2, 1, 3, 5, 8]` |
+| End  | —   | —                             | swap pivot: `arr[0]` ↔ `arr[1]` | —   | `[1, 2, 3, 5, 8]` |
+
+> Pivot `2` về đúng vị trí `[1]` ✅. Trái: `[1]`, Phải: `[3]`
+
+---
+
+### 🔄 Lần 3: `quickSort(arr, 0, 0)` — mảng `[1]`
 
 > 1 phần tử → **base case**, không làm gì ✅
 
 ---
 
-### 🔄 Lần 3: `quickSort(arr, 2, 4)` — pivot = `3` (arr[4])
+### 🔄 Lần 4: `quickSort(arr, 2, 2)` — mảng `[3]`
 
-<!-- partition(arr, 2, 4): pivot = 3, i = 1, j duyệt từ 2 đến 3. -->
-
-| Bước | `j` | So sánh `arr[j]` vs pivot `3` | Hành động                       | `i` | Mảng              |
-| ---- | --- | ----------------------------- | ------------------------------- | --- | ----------------- |
-| 1    | 2   | `8 <= 3`? ❌                  | Bỏ qua                          | 1   | `[1, 2, 8, 5, 3]` |
-| 2    | 3   | `5 <= 3`? ❌                  | Bỏ qua                          | 1   | `[1, 2, 8, 5, 3]` |
-| End  | —   | —                             | swap pivot: `arr[2]` ↔ `arr[4]` | —   | `[1, 2, 3, 5, 8]` |
-
-> Pivot `3` về đúng vị trí `[2]` ✅. Trái: `[]` (rỗng), Phải: `[5, 8]`
+> 1 phần tử → **base case**, không làm gì ✅
 
 ---
 
-### 🔄 Lần 4: `quickSort(arr, 3, 4)` — pivot = `8` (arr[4])
+### 🔄 Lần 5: `quickSort(arr, 4, 4)` — mảng `[8]`
 
-<!-- partition(arr, 3, 4): pivot = 8, i = 2, j = 3. -->
-
-| Bước | `j` | So sánh `arr[j]` vs pivot `8` | Hành động                                 | `i` | Mảng              |
-| ---- | --- | ----------------------------- | ----------------------------------------- | --- | ----------------- |
-| 1    | 3   | `5 <= 8`? ✅                  | `i=3`, swap `arr[3]` ↔ `arr[3]` (tự swap) | 3   | `[1, 2, 3, 5, 8]` |
-| End  | —   | —                             | swap pivot: `arr[4]` ↔ `arr[4]` (tự swap) | —   | `[1, 2, 3, 5, 8]` |
-
-> Pivot `8` đã đúng vị trí `[4]` ✅. **XONG!**
+> 1 phần tử → **base case**, không làm gì ✅
 
 ---
 
 ### 📊 Tổng kết trace
 
-<!-- Quick Sort với 5 phần tử chỉ cần 7 phép so sánh — ít hơn
+<!-- Quick Sort với 5 phần tử chỉ cần 6 phép so sánh — ít hơn
      Bubble Sort (10) và Insertion Sort (9).
      Đệ quy sâu 3 tầng = log₂(5) ≈ 2.3, làm tròn = 3. -->
 
 | Chỉ số               | Quick Sort | Bubble Sort | Insertion Sort |
 | -------------------- | ---------- | ----------- | -------------- |
-| Tổng số phép so sánh | **7**      | 10          | 9              |
-| Tổng số phép swap    | **4**      | 6           | — (dùng shift) |
+| Tổng số phép so sánh | **6**      | 10          | 9              |
+| Tổng số phép swap    | **5**      | 6           | — (dùng shift) |
 | Độ sâu đệ quy        | **3 tầng** | —           | —              |
 
 **Output:** `[1, 2, 3, 5, 8]` ✅
@@ -199,8 +198,8 @@ Sau:    [  1  |  2  |  8,  5,  3  ]
 
 ## 5. Code Java
 
-<!-- Dùng Lomuto partition scheme: pivot = phần tử cuối.
-     Đơn giản, dễ hiểu, phù hợp cho học thuật.
+<!-- Dùng Lomuto partition scheme: pivot = phần tử đầu.
+     Đơn giản, dễ hình dung (pivot là phần tử đầu tiên ta nhìn thấy).
      Production code thường dùng Hoare partition hoặc median-of-three để tránh worst case. -->
 
 ```java
@@ -226,14 +225,14 @@ public class QuickSort {
     }
 
     private static <T extends Comparable<T>> int partition(T[] arr, int low, int high) {
-        // Chọn phần tử cuối làm pivot
-        T pivot = arr[high];
+        // Chọn phần tử đầu làm pivot
+        T pivot = arr[low];
 
         // i theo dõi ranh giới giữa vùng <= pivot và vùng > pivot
-        int i = low - 1;
+        int i = low;
 
-        // Duyệt từ low đến high-1, so sánh từng phần tử với pivot
-        for (int j = low; j < high; j++) {
+        // Duyệt từ low+1 đến high, so sánh từng phần tử với pivot
+        for (int j = low + 1; j <= high; j++) {
             // Nếu phần tử hiện tại <= pivot → đưa nó vào vùng bên trái
             if (arr[j].compareTo(pivot) <= 0) {
                 i++;
@@ -242,8 +241,8 @@ public class QuickSort {
         }
 
         // Đặt pivot vào đúng vị trí (giữa vùng <= và vùng >)
-        swap(arr, i + 1, high);
-        return i + 1;
+        swap(arr, low, i);
+        return i;
     }
 
     private static <T> void swap(T[] arr, int i, int j) {
@@ -263,9 +262,9 @@ public class QuickSort {
 | `sort()`            | Entry point — kiểm tra null/empty rồi gọi quickSort      |
 | `quickSort()`       | Đệ quy: partition → sort nửa trái → sort nửa phải        |
 | `partition()`       | Chia mảng thành 2 vùng: ≤ pivot (trái) và > pivot (phải) |
-| `pivot = arr[high]` | Chọn phần tử cuối làm mốc (Lomuto scheme)                |
-| `i`                 | Ranh giới: mọi phần tử từ `low` đến `i` đều ≤ pivot      |
-| `swap(i+1, high)`   | Đặt pivot vào đúng vị trí cuối cùng                      |
+| `pivot = arr[low]`  | Chọn phần tử đầu làm mốc (Lomuto scheme)                 |
+| `i`                 | Ranh giới: mọi phần tử từ `low+1` đến `i` đều ≤ pivot    |
+| `swap(low, i)`      | Đặt pivot vào đúng vị trí cuối cùng                      |
 
 ---
 
@@ -304,21 +303,21 @@ public class QuickSort {
      Dùng sơ đồ để hình dung con trỏ i và j di chuyển. -->
 
 ```
-Trước partition:  [  chưa xét  |  pivot  ]
-                  low         high
+Trước partition:  [  pivot  |  chưa xét  ]
+                  low                  high
 
-Trong partition:  [ <= pivot | > pivot | chưa xét | pivot ]
-                  low     i          j           high
+Trong partition:  [ pivot | <= pivot | > pivot | chưa xét ]
+                  low             i          j           high
 
 Sau partition:    [ <= pivot | PIVOT | > pivot ]
-                  low       i+1      high
+                  low         i       high
 ```
 
 **Bất biến (Invariant):**
 
-- Mọi phần tử từ `low` đến `i`: **≤ pivot**
+- `arr[low]`: **pivot** (chưa di chuyển cho đến cuối)
+- Mọi phần tử từ `low+1` đến `i`: **≤ pivot**
 - Mọi phần tử từ `i+1` đến `j-1`: **> pivot**
-- Phần tử từ `j` đến `high-1`: **chưa xét**
-- `arr[high]`: **pivot**
+- Phần tử từ `j` đến `high`: **chưa xét**
 
 ---

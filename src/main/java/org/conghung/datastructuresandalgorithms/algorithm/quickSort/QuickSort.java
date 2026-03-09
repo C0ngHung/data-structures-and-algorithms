@@ -24,14 +24,14 @@ public class QuickSort {
     }
 
     private static <T extends Comparable<T>> int partition(T[] arr, int low, int high) {
-        // Chọn phần tử cuối làm pivot
-        T pivot = arr[high];
+        // Chọn phần tử đầu làm pivot
+        T pivot = arr[low];
 
         // i theo dõi ranh giới giữa vùng <= pivot và vùng > pivot
-        int i = low - 1;
+        int i = low;
 
-        // Duyệt từ low đến high-1, so sánh từng phần tử với pivot
-        for (int j = low; j < high; j++) {
+        // Duyệt từ low+1 đến high, so sánh từng phần tử với pivot
+        for (int j = low + 1; j <= high; j++) {
             // Nếu phần tử hiện tại <= pivot → đưa nó vào vùng bên trái
             if (arr[j].compareTo(pivot) <= 0) {
                 i++;
@@ -40,8 +40,8 @@ public class QuickSort {
         }
 
         // Đặt pivot vào đúng vị trí (giữa vùng <= và vùng >)
-        swap(arr, i + 1, high);
-        return i + 1;
+        swap(arr, low, i);
+        return i;
     }
 
     private static <T> void swap(T[] arr, int i, int j) {
