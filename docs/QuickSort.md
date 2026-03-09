@@ -23,11 +23,65 @@
 
 ---
 
-## 2. Thuật ngữ: Pivot & Partition
+## 2. Thuật ngữ: Pivot, Partition & Stable
 
-<!-- Hai khái niệm này là xương sống của Quick Sort.
+<!-- Ba khái niệm này là xương sống của việc hiểu Quick Sort.
      Hiểu sai pivot/partition = hiểu sai toàn bộ thuật toán.
+     Hiểu sai stable = không biết khi nào nên/không nên dùng Quick Sort.
      Giải thích bằng ví dụ đời thực để dễ hình dung. -->
+
+### ⚖️ Stable Sort là gì?
+
+**Stable Sort** (sắp xếp ổn định) là thuật toán sort mà **các phần tử có giá trị bằng nhau giữ nguyên thứ tự ban đầu**.
+
+> Hình dung: bạn có danh sách học sinh đã **xếp theo tên A-Z**.
+> Giờ bạn sort lại **theo điểm số**.
+> - **Stable sort:** Những học sinh cùng điểm vẫn **giữ thứ tự tên A-Z** ban đầu ✅
+> - **Unstable sort:** Những học sinh cùng điểm **bị xáo trộn thứ tự tên** ❌
+
+#### Ví dụ trực quan:
+
+```
+Input (đã sorted theo tên):
+  ("An", 8), ("Bình", 7), ("Cường", 8), ("Dũng", 7)
+
+Sort theo điểm:
+
+  Stable (Merge Sort, Insertion Sort):
+    ("Bình", 7), ("Dũng", 7), ("An", 8), ("Cường", 8)
+     ↑ Bình trước Dũng (giữ nguyên thứ tự tên A-Z) ✅
+     ↑ An trước Cường (giữ nguyên thứ tự tên A-Z) ✅
+
+  Unstable (Quick Sort):
+    ("Dũng", 7), ("Bình", 7), ("Cường", 8), ("An", 8)
+     ↑ Dũng nhảy trước Bình (thứ tự tên bị xáo trộn) ❌
+     ↑ Cường nhảy trước An (thứ tự tên bị xáo trộn) ❌
+```
+
+#### Tại sao Quick Sort không stable?
+
+<!-- Vì partition dùng swap khoảng cách xa — phần tử có thể nhảy qua
+     phần tử bằng nhau, phá vỡ thứ tự ban đầu. -->
+
+Vì trong partition, **swap xảy ra ở khoảng cách xa** — phần tử có thể "nhảy" qua phần tử cùng giá trị:
+
+```
+Input: [3a, 2, 3b, 1]     (3a và 3b có cùng giá trị 3)
+Pivot = 3a
+
+Partition: 2 ≤ 3a → swap, 3b ≤ 3a → swap, 1 ≤ 3a → swap
+Kết quả có thể: [2, 1, 3b, 3a]  ← 3b nhảy trước 3a → UNSTABLE!
+```
+
+#### Khi nào cần stable?
+
+| Cần Stable ✅ | Không cần Stable |
+|---|---|
+| Sort theo **nhiều tiêu chí** (điểm → tên) | Sort primitive (`int[]`, `double[]`) |
+| Giữ **thứ tự hiển thị** trên UI | Sort 1 tiêu chí duy nhất |
+| **Database** ordering cần consistent | Khi chỉ cần giá trị đúng thứ tự |
+
+> **Đó là lý do Java dùng TimSort (stable) cho Object, và Quick Sort (unstable) cho primitive** — vì `3 == 3` trong int không cần phân biệt, nhưng 2 Student cùng điểm thì khác nhau.
 
 ### 🎯 Pivot là gì?
 
