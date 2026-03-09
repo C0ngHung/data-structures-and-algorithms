@@ -11,16 +11,20 @@ public class BubbleSort {
 
         int n = arr.length;
 
+        // Vòng ngoài: mỗi lượt i, phần tử lớn thứ (i+1) sẽ về đúng vị trí cuối
         for (int i = 0; i < n - 1; i++) {
             boolean swapped = false;
 
+            // Vòng trong: so sánh từng cặp kề, bỏ qua phần cuối đã sorted (n-1-i)
             for (int j = 0; j < n - 1 - i; j++) {
+                // Nếu phần tử trái > phần tử phải → swap (đổi chỗ)
                 if (arr[j].compareTo(arr[j + 1]) > 0) {
                     swap(arr, j, j + 1);
                     swapped = true;
                 }
             }
 
+            // Tối ưu: nếu cả lượt không swap lần nào → mảng đã sorted → dừng sớm
             if (!swapped) {
                 break;
             }
