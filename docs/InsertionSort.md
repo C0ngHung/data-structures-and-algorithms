@@ -17,7 +17,7 @@
 
 - Chia mảng thành 2 phần: **đã sorted** (ban đầu chỉ phần tử đầu tiên) và **chưa sorted** (phần còn lại).
 - Lấy phần tử đầu tiên của phần chưa sorted (gọi là `key`).
-- **Dịch** (shift) tất cả phần tử trong phần sorted mà lớn hơn `key` sang phải 1 vị trí.
+- **Dịch** (shift) tất cả phần tử trong phần sorted  mà lớn hơn `key` sang phải 1 vị trí.
 - Đặt `key` vào chỗ trống vừa tạo ra.
 - **Ưu điểm so với Bubble Sort:** dùng shift thay vì swap → ít thao tác ghi hơn (1 lần gán thay vì 3 lần gán mỗi swap).
 
