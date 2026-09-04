@@ -1,0 +1,10 @@
+{
+    "customCommands": [
+        "commands/*"
+    ],
+    "permissions": {
+        "deny": [
+            "**/target/**"
+        ]
+    }
+}
