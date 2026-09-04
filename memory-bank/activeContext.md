@@ -11,6 +11,7 @@
 
 - Initial Memory Bank creation with all 6 core files
 - Added visual diagrams (List.png, Map.png, Queue.png) for data structures
+- Integrated Portable Agent Kit (guard, rules, workflows, skills) adapted for DSA learning
 
 ## Next Steps
 
