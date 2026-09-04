@@ -10,6 +10,7 @@
 ## Recent Changes
 
 - Initial Memory Bank creation with all 6 core files
+- Added visual diagrams (List.png, Map.png, Queue.png) for data structures
 
 ## Next Steps
 

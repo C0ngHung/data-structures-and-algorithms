@@ -17,6 +17,7 @@
 ## What's Left to Build
 
 - [x] **Merge Sort** — Generic sort + Divide & Conquer merge
+- [x] **Visual Diagrams** — Added architecture/flow diagrams for List, Map, and Queue
 - [ ] **JUnit Tests** — Only 1 test file exists; need comprehensive unit tests
 - [ ] **Advanced Data Structures** — Heap, Graph, Trie (not yet planned)
 
